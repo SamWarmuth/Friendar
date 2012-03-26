@@ -1,0 +1,282 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		88462645152120420066A45F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88462644152120420066A45F /* UIKit.framework */; };
+		88462647152120420066A45F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88462646152120420066A45F /* Foundation.framework */; };
+		88462649152120420066A45F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88462648152120420066A45F /* CoreGraphics.framework */; };
+		8846264F152120420066A45F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8846264D152120420066A45F /* InfoPlist.strings */; };
+		88462651152120420066A45F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 88462650152120420066A45F /* main.m */; };
+		88462655152120420066A45F /* SWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 88462654152120420066A45F /* SWAppDelegate.m */; };
+		88462658152120420066A45F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88462656152120420066A45F /* MainStoryboard.storyboard */; };
+		8846265B152120420066A45F /* SWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8846265A152120420066A45F /* SWViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		88462640152120420066A45F /* Friendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Friendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88462644152120420066A45F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		88462646152120420066A45F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		88462648152120420066A45F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8846264C152120420066A45F /* Friendar-Info.plist */ = {isa = PBXFileReference; path = "Friendar-Info.plist"; sourceTree = "<group>"; };
+		8846264E152120420066A45F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		88462650152120420066A45F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		88462652152120420066A45F /* Friendar-Prefix.pch */ = {isa = PBXFileReference; path = "Friendar-Prefix.pch"; sourceTree = "<group>"; };
+		88462653152120420066A45F /* SWAppDelegate.h */ = {isa = PBXFileReference; path = SWAppDelegate.h; sourceTree = "<group>"; };
+		88462654152120420066A45F /* SWAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SWAppDelegate.m; sourceTree = "<group>"; };
+		88462657152120420066A45F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		88462659152120420066A45F /* SWViewController.h */ = {isa = PBXFileReference; path = SWViewController.h; sourceTree = "<group>"; };
+		8846265A152120420066A45F /* SWViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SWViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8846263D152120420066A45F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88462645152120420066A45F /* UIKit.framework in Frameworks */,
+				88462647152120420066A45F /* Foundation.framework in Frameworks */,
+				88462649152120420066A45F /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		88462635152120410066A45F = {
+			isa = PBXGroup;
+			children = (
+				8846264A152120420066A45F /* Friendar */,
+				88462643152120420066A45F /* Frameworks */,
+				88462641152120420066A45F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		88462641152120420066A45F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				88462640152120420066A45F /* Friendar.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		88462643152120420066A45F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				88462644152120420066A45F /* UIKit.framework */,
+				88462646152120420066A45F /* Foundation.framework */,
+				88462648152120420066A45F /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8846264A152120420066A45F /* Friendar */ = {
+			isa = PBXGroup;
+			children = (
+				88462653152120420066A45F /* SWAppDelegate.h */,
+				88462654152120420066A45F /* SWAppDelegate.m */,
+				88462656152120420066A45F /* MainStoryboard.storyboard */,
+				88462659152120420066A45F /* SWViewController.h */,
+				8846265A152120420066A45F /* SWViewController.m */,
+				8846264B152120420066A45F /* Supporting Files */,
+			);
+			path = Friendar;
+			sourceTree = "<group>";
+		};
+		8846264B152120420066A45F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8846264C152120420066A45F /* Friendar-Info.plist */,
+				8846264D152120420066A45F /* InfoPlist.strings */,
+				88462650152120420066A45F /* main.m */,
+				88462652152120420066A45F /* Friendar-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8846263F152120420066A45F /* Friendar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8846265E152120420066A45F /* Build configuration list for PBXNativeTarget "Friendar" */;
+			buildPhases = (
+				8846263C152120420066A45F /* Sources */,
+				8846263D152120420066A45F /* Frameworks */,
+				8846263E152120420066A45F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Friendar;
+			productName = Friendar;
+			productReference = 88462640152120420066A45F /* Friendar.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		88462637152120410066A45F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SW;
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 8846263A152120410066A45F /* Build configuration list for PBXProject "Friendar" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 88462635152120410066A45F;
+			productRefGroup = 88462641152120420066A45F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8846263F152120420066A45F /* Friendar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8846263E152120420066A45F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8846264F152120420066A45F /* InfoPlist.strings in Resources */,
+				88462658152120420066A45F /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8846263C152120420066A45F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88462651152120420066A45F /* main.m in Sources */,
+				88462655152120420066A45F /* SWAppDelegate.m in Sources */,
+				8846265B152120420066A45F /* SWViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8846264D152120420066A45F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8846264E152120420066A45F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		88462656152120420066A45F /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				88462657152120420066A45F /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8846265C152120420066A45F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8846265D152120420066A45F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8846265F152120420066A45F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Friendar/Friendar-Prefix.pch";
+				INFOPLIST_FILE = "Friendar/Friendar-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		88462660152120420066A45F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Friendar/Friendar-Prefix.pch";
+				INFOPLIST_FILE = "Friendar/Friendar-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8846263A152120410066A45F /* Build configuration list for PBXProject "Friendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8846265C152120420066A45F /* Debug */,
+				8846265D152120420066A45F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8846265E152120420066A45F /* Build configuration list for PBXNativeTarget "Friendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8846265F152120420066A45F /* Debug */,
+				88462660152120420066A45F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 88462637152120410066A45F /* Project object */;
+}
