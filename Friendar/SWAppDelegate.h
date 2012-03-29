@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface SWAppDelegate : UIResponder <UIApplicationDelegate>
+#import <Alohar/Alohar.h>
+@interface SWAppDelegate : UIResponder <UIApplicationDelegate, ALUserStayDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+- (void)timerCallback:(NSTimer *)timer;
+- (void)sendLocationAndAddressToServerWithLocation:(CLLocation *)location;
 
 @end
