@@ -14,8 +14,8 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>logo@2x.png</string>
-				<string>logo.png</string>
+				<string>radar@2x.png</string>
+				<string>radar.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
@@ -37,10 +37,6 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>location</string>
-	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>
 	<key>UIPrerenderedIcon</key>
@@ -49,8 +45,6 @@
 	<array>
 		<string>location-services</string>
 		<string>armv7</string>
-		<string>gps</string>
-		<string>accelerometer</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

@@ -26,6 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
 	// Do any additional setup after loading the view.
 }
 
@@ -35,18 +36,43 @@
     // Release any retained subviews of the main view.
 }
 
--(IBAction)loginPressed:(id)sender
+- (void)viewDidAppear:(BOOL)animated
 {
-    if (email.text.length == 0 || password.text.length == 0) return;
-    [PFUser logInWithUsernameInBackground:email.text password:password.text 
-                                    block:^(PFUser *user, NSError *error) {
-                                        if (user) {
-                                            // Do stuff after successful login.
-                                        } else {
-                                            // The login failed. Check error to see why.
-                                        }
-                                    }]; 
+    [super viewDidAppear:animated];
+    [self.email becomeFirstResponder];
 }
+
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.password){
+        NSLog(@"hi! %@, %@", password.text, email.text);
+        if (email.text.length == 0 || password.text.length == 0) return NO;
+        [PFUser logInWithUsernameInBackground:email.text password:password.text 
+                                        block:^(PFUser *user, NSError *error) {
+                                            if (user) {
+                                                [PFPush subscribeToChannelInBackground:user.objectId];
+                                                [self performSegueWithIdentifier:@"loginToMain" sender:self];
+                                            } else {
+                                                NSString *errorString = [[error userInfo] objectForKey:@"error"];
+                                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Signing Up"
+                                                                                                message:errorString
+                                                                                               delegate:nil
+                                                                                      cancelButtonTitle:@"OK"
+                                                                                      otherButtonTitles:nil];
+                                                alert.delegate = nil;
+                                                [alert show];
+                                            }
+                                        }]; 
+    }else {
+        NSInteger nextTag = textField.tag + 1;
+        UIResponder *nextResponder = [textField.superview viewWithTag:nextTag];
+        [nextResponder becomeFirstResponder];
+    }
+    return NO;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);

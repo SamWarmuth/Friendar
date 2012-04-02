@@ -9,7 +9,7 @@
 #import "SWFriendCell.h"
 
 @implementation SWFriendCell
-@synthesize emailLabel, locationLabel, avatarImageView;
+@synthesize emailLabel, locationLabelOne,locationLabelTwo, avatarImageView, pushConfirmButton;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

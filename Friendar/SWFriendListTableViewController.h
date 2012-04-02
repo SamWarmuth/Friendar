@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import <CoreLocation/CoreLocation.h>
+#import "MAConfirmButton.h"
+
+#define SWButtonTagOffset                 1111
 
 @interface SWFriendListTableViewController : PFQueryTableViewController
 
+- (void)spotConfirmPressed:(MAConfirmButton *)button;
 @end

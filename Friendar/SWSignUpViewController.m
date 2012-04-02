@@ -7,6 +7,7 @@
 //
 
 #import "SWSignUpViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SWSignUpViewController ()
 
@@ -30,13 +31,19 @@
 	PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
         NSLog(@"%@", currentUser);
+        [PFPush subscribeToChannelInBackground:currentUser.objectId];
 
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         UIViewController *mainView = [storyboard instantiateViewControllerWithIdentifier:@"SWMainViewController"];
         UINavigationController *navController = self.navigationController;
         navController.viewControllers = [NSArray arrayWithObject:mainView];
-    }
-    
+    }    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.email becomeFirstResponder];
 }
 
 - (void)viewDidUnload
@@ -45,31 +52,43 @@
     // Release any retained subviews of the main view.
 }
 
--(IBAction)signupPressed:(id)sender
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (email.text.length == 0 || password.text.length == 0) return;
-
-    PFUser *user = [PFUser user];
-    user.username = email.text;
-    user.password = password.text;
-    user.email = email.text;
-    
-    // other fields can be set just like with PFObject
-    //[user setObject:@"415-392-0202" forKey:@"phone"];
-    
-    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            [self performSegueWithIdentifier:@"signupToMain" sender:self];
-            // Hooray! Let them use the app now.
-        } else {
-            NSString *errorString = [[error userInfo] objectForKey:@"error"];
-            NSLog(@"Error signing up: %@", errorString);
-            // Show the errorString somewhere and let the user try again.
-        }
-    }];
+    if (textField == self.passwordConfirm){
+        if (email.text.length == 0 || password.text.length == 0) return NO;
+        
+        PFUser *user = [PFUser user];
+        user.username = email.text;
+        user.password = password.text;
+        user.email = email.text;
+        
+        // other fields can be set just like with PFObject
+        //[user setObject:@"415-392-0202" forKey:@"phone"];
+        
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [PFPush subscribeToChannelInBackground:user.objectId];
+                [self performSegueWithIdentifier:@"signupToMain" sender:self];
+            } else {
+                NSString *errorString = [[error userInfo] objectForKey:@"error"];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Signing Up"
+                                                                message:errorString
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                alert.delegate = nil;
+                [alert show];
+            }
+        }];
+    }else {
+        NSInteger nextTag = textField.tag + 1;
+        UIResponder *nextResponder = [textField.superview viewWithTag:nextTag];
+        [nextResponder becomeFirstResponder];
+    }
+    return NO;
 }
-
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

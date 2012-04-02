@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SWSignUpViewController : UIViewController
+@interface SWSignUpViewController : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *email, *password, *passwordConfirm;
 
-
--(IBAction)signupPressed:(id)sender;
 
 @end

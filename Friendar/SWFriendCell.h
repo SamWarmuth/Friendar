@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MAConfirmButton.h"
 
 @interface SWFriendCell : UITableViewCell
-@property (nonatomic, strong) IBOutlet UILabel *emailLabel, *locationLabel;
+@property (nonatomic, strong) IBOutlet UILabel *emailLabel, *locationLabelOne, *locationLabelTwo;
 @property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
+@property (nonatomic, strong) MAConfirmButton *pushConfirmButton;
 
 
 @end

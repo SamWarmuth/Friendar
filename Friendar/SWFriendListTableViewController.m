@@ -88,27 +88,68 @@
     if (cell == nil) {
         cell = [[SWFriendCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    NSString *currentAddress = [object objectForKey:@"currentAddress"];
+    NSDictionary *currentAddress = [object objectForKey:@"currentAddress"];
     if (currentAddress == nil){
-        cell.locationLabel.text = @"Location Not Available";
+        cell.locationLabelOne.text = @"";
+        cell.locationLabelTwo.text = @"Location Not Available";
     } else {
-        cell.locationLabel.text = currentAddress;
+        cell.locationLabelOne.text = [NSString stringWithFormat:@"%@ %@", [currentAddress valueForKey:@"streetNumber"], [currentAddress valueForKey:@"street"]];
+        cell.locationLabelTwo.text = [NSString stringWithFormat:@"%@, %@", [currentAddress valueForKey:@"city"], [currentAddress valueForKey:@"state"]];
     }
 
     cell.emailLabel.text = [object objectForKey:@"email"];
     cell.avatarImageView.layer.cornerRadius = 4.0;
     cell.avatarImageView.clipsToBounds = TRUE;
+    if (cell.pushConfirmButton != nil){
+        [cell.pushConfirmButton removeFromSuperview];
+        cell.pushConfirmButton = nil;
+    }
+    
+    if ([object.objectId isEqualToString:[PFUser currentUser].objectId]){
+        cell.pushConfirmButton = [MAConfirmButton buttonWithDisabledTitle:@"You"];
+    } else {
+        cell.pushConfirmButton = [MAConfirmButton buttonWithTitle:@"Send Ping" confirm:@"Confirm"];
+        [cell.pushConfirmButton addTarget:self action:@selector(spotConfirmPressed:) forControlEvents:UIControlEventTouchUpInside];	
+        [cell.pushConfirmButton setTintColor:[UIColor colorWithRed:0.024 green:0.514 blue:0.796 alpha:1.]];
+    }
+    
+    [cell.pushConfirmButton setAnchor:CGPointMake(300, 15)];	
+    cell.pushConfirmButton.tag = indexPath.row + SWButtonTagOffset; 
+    [cell addSubview:cell.pushConfirmButton]; 
     
     return cell;
 }
 
+- (void)spotConfirmPressed:(MAConfirmButton *)button
+{
+    int userIndex = button.tag - SWButtonTagOffset;
+    PFUser *selectedUser = [self.objects objectAtIndex:userIndex];
+    
+    NSDictionary *alert = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"New Ping From Sam Warmuth", @"body",
+                           @"View", @"action-loc-key",
+                           nil];
+    
+    NSDictionary *pingData = [NSDictionary dictionaryWithObjectsAndKeys:
+                          alert, @"alert",
+                          nil];
+    NSLog(@"sending ping...");
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannel:selectedUser.objectId];
+    [push setData:pingData];
+    [push expireAfterTimeInterval:86400];
+    [push sendPushInBackground];
+    [button disableWithTitle:@"Ping Sent"];
+    
+}
+
 - (void)objectsWillLoad
 {
-    NSLog(@"Loading....?");
+    //NSLog(@"Loading....?");
 }
 - (void)objectsDidLoad:(NSError *)error
 {
-    NSLog(@"Loaded....? :: %@ :: %d", error, self.objects.count);
+    //NSLog(@"Loaded....? :: %@ :: %d", error, self.objects.count);
 }
 
 #pragma mark - Table view delegate

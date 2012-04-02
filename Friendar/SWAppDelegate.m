@@ -9,22 +9,16 @@
 #import "SWAppDelegate.h"
 
 @implementation SWAppDelegate
-
+@synthesize locationManager;
 @synthesize window = _window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {    
     [Parse setApplicationId:@"ILWem3qL8V6LnF5E0csTWqn26HFMcZPR4zDkEiZh" clientKey:@"M3YhKrhwl72RtkFXiGMtzL0xgjSSgunC9e42YGxz"];
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert| UIRemoteNotificationTypeSound];
-    NSString *userToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"SWAloharUserToken"];
-    if (userToken == nil || userToken.length == 0){
-        [Alohar registerWithAppID:@"10" andAPIKey:@"2a2b3446ebd2af25633a9f600c1d8e8aa1d7b463" withDelegate:self];
-    }else{
-        [Alohar authenticateWithAppID:@"10" andAPIKey:@"2a2b3446ebd2af25633a9f600c1d8e8aa1d7b463" andUserID:userToken withDelegate:self];
-    }
-    [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(timerCallback:) userInfo:nil repeats:YES];
-
-    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    [locationManager startMonitoringSignificantLocationChanges];
     return YES;
 }
 
@@ -37,28 +31,43 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [PFPush handlePush:userInfo];
-}
-
-- (void)aloharDidLogin:(NSString *)userToken
-{
-    NSLog(@"Logged in! Token: %@", userToken);
+    //[PFPush handlePush:userInfo];
+    NSLog(@"Hi!");
+    if (application.applicationState == UIApplicationStateActive){
+        NSLog(@"use:%@", userInfo);
+        [self bringPingToForeground:nil];
+        
+    } else {
+        NSLog(@"background....");
+        NSLog(@"use:%@", userInfo);
+        [self bringPingToForeground:nil];
+    }
     
-    [[NSUserDefaults standardUserDefaults] setObject:userToken forKey:@"SWAloharUserToken"];
-    [Alohar startMonitoringUser];
-    [Alohar setUserStayDelegate:self];
-}
-- (void)userArrivedAtPlaceWithLocation:(CLLocation *)location
-{
-    [self sendLocationAndAddressToServerWithLocation:location];    
 }
 
-- (void)timerCallback:(NSTimer *)timer
+- (void)bringPingToForeground:(NSDictionary *)pingData
 {
-    NSLog(@"Timer!");
-    if (![Alohar isLoggedIn]) return;
-    [self sendLocationAndAddressToServerWithLocation:[Alohar currentLocation]];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIViewController *viewController = (UIViewController *)(self.window.rootViewController.childViewControllers.lastObject);
+    UINavigationController *navController = viewController.navigationController;
+    
+    UIViewController *pingDetail = [storyboard instantiateViewControllerWithIdentifier:@"SWPingDetail"];
+    NSMutableArray *newViewControllers = [navController.viewControllers mutableCopy];
+    [newViewControllers addObject:pingDetail];
+    
+    navController.viewControllers = [NSArray arrayWithArray:newViewControllers];
 }
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"New Location!");
+    [self sendLocationAndAddressToServerWithLocation:newLocation];
+}
+
+
+
 
 - (void)sendLocationAndAddressToServerWithLocation:(CLLocation *)location
 {
@@ -83,12 +92,11 @@
                            NSDictionary *addressDict = [[NSMutableDictionary alloc] init];
                            [addressDict setValue:[topResult subThoroughfare] forKey:@"streetNumber"];
                            [addressDict setValue:[topResult thoroughfare] forKey:@"street"];
-                           [addressDict setValue:[topResult locality] forKey:@"City"];
-                           
-                           NSString *addressString = [NSString stringWithFormat:@"%@ %@, %@", 
-                                                      [topResult subThoroughfare],[topResult thoroughfare],
-                                                      [topResult locality]];
-                           [currentUser setObject:addressString forKey:@"currentAddress"];
+                           [addressDict setValue:[topResult locality] forKey:@"city"];
+                           [addressDict setValue:[topResult administrativeArea] forKey:@"state"];
+
+
+                           [currentUser setObject:addressDict forKey:@"currentAddress"];
                            [currentUser saveEventually];
                        }
                    }];

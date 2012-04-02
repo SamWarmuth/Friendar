@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Alohar/Alohar.h>
-@interface SWAppDelegate : UIResponder <UIApplicationDelegate, ALUserStayDelegate>
+#import <CoreLocation/CoreLocation.h>
 
+@interface SWAppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) UIWindow *window;
 
-- (void)timerCallback:(NSTimer *)timer;
-- (void)sendLocationAndAddressToServerWithLocation:(CLLocation *)location;
+- (void)bringPingToForeground:(NSDictionary *)pingData;
 
 @end
