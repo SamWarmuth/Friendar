@@ -15,6 +15,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {    
     [Parse setApplicationId:@"ILWem3qL8V6LnF5E0csTWqn26HFMcZPR4zDkEiZh" clientKey:@"M3YhKrhwl72RtkFXiGMtzL0xgjSSgunC9e42YGxz"];
+    [PFFacebookUtils initializeWithApplicationId:@"395649053787339"];
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert| UIRemoteNotificationTypeSound];
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -28,6 +29,10 @@
     [PFPush storeDeviceToken:newDeviceToken];
     // Subscribe to the global broadcast channel.
     [PFPush subscribeToChannelInBackground:@""];
+    PFUser *currentUser = [PFUser currentUser];
+    [currentUser setObject:[[NSMutableArray alloc] init] forKey:@"friends"];
+    
+    [currentUser saveEventually];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
@@ -58,6 +63,15 @@
     navController.viewControllers = [NSArray arrayWithArray:newViewControllers];
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [PFFacebookUtils handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [PFFacebookUtils handleOpenURL:url]; 
+}
+
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
@@ -74,9 +88,11 @@
     if (location == nil) return;
     
     PFUser *currentUser = [PFUser currentUser];
-    [currentUser setObject:[NSNumber numberWithDouble:location.coordinate.latitude] forKey:@"currentLat"];
-    [currentUser setObject:[NSNumber numberWithDouble:location.coordinate.longitude] forKey:@"currentLng"];
     
+    NSNumber *lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+    NSNumber *lng = [NSNumber numberWithDouble:location.coordinate.longitude];
+    NSNumber *accuracy = [NSNumber numberWithDouble:location.horizontalAccuracy];
+
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     
@@ -89,14 +105,20 @@
                        }
                        if(placemarks && placemarks.count > 0){
                            CLPlacemark *topResult = [placemarks objectAtIndex:0];
-                           NSDictionary *addressDict = [[NSMutableDictionary alloc] init];
-                           [addressDict setValue:[topResult subThoroughfare] forKey:@"streetNumber"];
-                           [addressDict setValue:[topResult thoroughfare] forKey:@"street"];
-                           [addressDict setValue:[topResult locality] forKey:@"city"];
-                           [addressDict setValue:[topResult administrativeArea] forKey:@"state"];
+                           NSDictionary *currentDict = [[NSMutableDictionary alloc] init];
+                           [currentDict setValue:[topResult subThoroughfare] forKey:@"streetNumber"];
+                           [currentDict setValue:[topResult thoroughfare] forKey:@"street"];
+                           [currentDict setValue:[topResult locality] forKey:@"city"];
+                           [currentDict setValue:[topResult administrativeArea] forKey:@"state"];
+                           [currentDict setValue:lat forKey:@"latitude"];
+                           [currentDict setValue:lng forKey:@"longitude"];
+                           [currentDict setValue:accuracy forKey:@"accuracy"];
+                           [currentDict setValue:[NSDate date] forKey:@"timestamp"];
 
 
-                           [currentUser setObject:addressDict forKey:@"currentAddress"];
+
+                           [currentUser setObject:currentDict forKey:@"current"];
+                           
                            [currentUser saveEventually];
                        }
                    }];

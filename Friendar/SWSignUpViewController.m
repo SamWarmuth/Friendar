@@ -37,7 +37,24 @@
         UIViewController *mainView = [storyboard instantiateViewControllerWithIdentifier:@"SWMainViewController"];
         UINavigationController *navController = self.navigationController;
         navController.viewControllers = [NSArray arrayWithObject:mainView];
-    }    
+    } 
+    
+    UIButton *fbButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [fbButton setFrame:CGRectMake(10.0f, 0.0f, 50.0f, 25.0f)];
+    [fbButton addTarget:self action:@selector(signupWithFacebook) forControlEvents:UIControlEventTouchUpInside];
+    [fbButton setImage:[UIImage imageNamed:@"fbLogoSpaced.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *fbButtonItem = [[UIBarButtonItem alloc] initWithCustomView:fbButton];
+    
+    //? line incomplete ?//   imageNamed:@"random.png"] style:UIBarButtonItemStylePlain target:self action:@selector(randomMsg)];
+    
+    self.navigationItem.leftBarButtonItem = fbButtonItem;
+    
+    
+}
+
+- (void)signupWithFacebook
+{
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -63,6 +80,7 @@
         user.username = email.text;
         user.password = password.text;
         user.email = email.text;
+        
         
         // other fields can be set just like with PFObject
         //[user setObject:@"415-392-0202" forKey:@"phone"];

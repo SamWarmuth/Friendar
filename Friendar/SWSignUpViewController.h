@@ -11,6 +11,6 @@
 @interface SWSignUpViewController : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *email, *password, *passwordConfirm;
-
+- (void)signupWithFacebook;
 
 @end

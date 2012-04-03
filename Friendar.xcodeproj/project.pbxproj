@@ -28,6 +28,19 @@
 		8849F7881529787600B2BE98 /* radar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7871529787600B2BE98 /* radar@2x.png */; };
 		8849F7961529860D00B2BE98 /* SWUserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8849F7951529860D00B2BE98 /* SWUserDetailViewController.m */; };
 		8849F79D15298FB800B2BE98 /* SWFriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8849F79C15298FB800B2BE98 /* SWFriendRequestViewController.m */; };
+		8849F7A7152A126000B2BE98 /* button_gloss_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7A3152A126000B2BE98 /* button_gloss_pressed.png */; };
+		8849F7A8152A126000B2BE98 /* button_gloss_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7A4152A126000B2BE98 /* button_gloss_pressed@2x.png */; };
+		8849F7A9152A126000B2BE98 /* button_gloss.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7A5152A126000B2BE98 /* button_gloss.png */; };
+		8849F7AA152A126000B2BE98 /* button_gloss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7A6152A126000B2BE98 /* button_gloss@2x.png */; };
+		8849F7AC152A19A300B2BE98 /* button_gloss_full.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7AB152A19A300B2BE98 /* button_gloss_full.png */; };
+		8849F7AF152A29EF00B2BE98 /* SWPingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8849F7AE152A29EF00B2BE98 /* SWPingDetailViewController.m */; };
+		8849F7B5152A30B400B2BE98 /* facebookLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7B4152A30B400B2BE98 /* facebookLogo.png */; };
+		8849F7B7152A324A00B2BE98 /* fbLogoSpaced.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7B6152A324A00B2BE98 /* fbLogoSpaced.png */; };
+		8849F7B9152A32EC00B2BE98 /* fbLogoSpaced@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7B8152A32EC00B2BE98 /* fbLogoSpaced@2x.png */; };
+		8849F7BD152A3CF700B2BE98 /* SWFindFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8849F7BC152A3CF700B2BE98 /* SWFindFriendsTableViewController.m */; };
+		8849F7C0152A3DF600B2BE98 /* SWAddFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8849F7BF152A3DF600B2BE98 /* SWAddFriendCell.m */; };
+		8849F7C6152A440F00B2BE98 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7C5152A440E00B2BE98 /* Default.png */; };
+		8849F7C8152A441200B2BE98 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8849F7C7152A441200B2BE98 /* Default@2x.png */; };
 		887A119015295AC0006F0A80 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887A118F15295AC0006F0A80 /* QuartzCore.framework */; };
 		887A119115295AD4006F0A80 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88462674152121CF0066A45F /* CoreLocation.framework */; };
 		887A119315295CEA006F0A80 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887A119215295CEA006F0A80 /* AudioToolbox.framework */; };
@@ -38,7 +51,6 @@
 		887A11A115295D23006F0A80 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887A119515295CF8006F0A80 /* SystemConfiguration.framework */; };
 		887A11A215295D3D006F0A80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88462648152120420066A45F /* CoreGraphics.framework */; };
 		887A11A515295E5D006F0A80 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887A11A315295E59006F0A80 /* MapKit.framework */; };
-		887A11A815295ED3006F0A80 /* SWPushDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 887A11A715295ED3006F0A80 /* SWPushDetailViewController.m */; };
 		887A11AF15295F58006F0A80 /* MAConfirmButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 887A11AC15295F58006F0A80 /* MAConfirmButton.m */; };
 		887A11B015295F59006F0A80 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 887A11AE15295F58006F0A80 /* UIColor-Expanded.m */; };
 		887A11BD15296343006F0A80 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 887A11BA15296343006F0A80 /* SVProgressHUD.bundle */; };
@@ -81,6 +93,22 @@
 		8849F7951529860D00B2BE98 /* SWUserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUserDetailViewController.m; sourceTree = "<group>"; };
 		8849F79B15298FB800B2BE98 /* SWFriendRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFriendRequestViewController.h; sourceTree = "<group>"; };
 		8849F79C15298FB800B2BE98 /* SWFriendRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFriendRequestViewController.m; sourceTree = "<group>"; };
+		8849F7A3152A126000B2BE98 /* button_gloss_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_gloss_pressed.png; sourceTree = "<group>"; };
+		8849F7A4152A126000B2BE98 /* button_gloss_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_gloss_pressed@2x.png"; sourceTree = "<group>"; };
+		8849F7A5152A126000B2BE98 /* button_gloss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_gloss.png; sourceTree = "<group>"; };
+		8849F7A6152A126000B2BE98 /* button_gloss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_gloss@2x.png"; sourceTree = "<group>"; };
+		8849F7AB152A19A300B2BE98 /* button_gloss_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_gloss_full.png; sourceTree = "<group>"; };
+		8849F7AD152A29EE00B2BE98 /* SWPingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWPingDetailViewController.h; sourceTree = "<group>"; };
+		8849F7AE152A29EF00B2BE98 /* SWPingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWPingDetailViewController.m; sourceTree = "<group>"; };
+		8849F7B4152A30B400B2BE98 /* facebookLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookLogo.png; sourceTree = "<group>"; };
+		8849F7B6152A324A00B2BE98 /* fbLogoSpaced.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fbLogoSpaced.png; sourceTree = "<group>"; };
+		8849F7B8152A32EC00B2BE98 /* fbLogoSpaced@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fbLogoSpaced@2x.png"; sourceTree = "<group>"; };
+		8849F7BB152A3CF700B2BE98 /* SWFindFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFindFriendsTableViewController.h; sourceTree = "<group>"; };
+		8849F7BC152A3CF700B2BE98 /* SWFindFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFindFriendsTableViewController.m; sourceTree = "<group>"; };
+		8849F7BE152A3DF600B2BE98 /* SWAddFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAddFriendCell.h; sourceTree = "<group>"; };
+		8849F7BF152A3DF600B2BE98 /* SWAddFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWAddFriendCell.m; sourceTree = "<group>"; };
+		8849F7C5152A440E00B2BE98 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		8849F7C7152A441200B2BE98 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		887A118F15295AC0006F0A80 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		887A119215295CEA006F0A80 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		887A119515295CF8006F0A80 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -88,8 +116,6 @@
 		887A119A15295D0A006F0A80 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		887A119C15295D0F006F0A80 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		887A11A315295E59006F0A80 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		887A11A615295ED3006F0A80 /* SWPushDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWPushDetailViewController.h; sourceTree = "<group>"; };
-		887A11A715295ED3006F0A80 /* SWPushDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWPushDetailViewController.m; sourceTree = "<group>"; };
 		887A11AB15295F58006F0A80 /* MAConfirmButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAConfirmButton.h; sourceTree = "<group>"; };
 		887A11AC15295F58006F0A80 /* MAConfirmButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAConfirmButton.m; sourceTree = "<group>"; };
 		887A11AD15295F58006F0A80 /* UIColor-Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor-Expanded.h"; sourceTree = "<group>"; };
@@ -128,6 +154,7 @@
 		8810DB5F1523973E00FD2779 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8849F7A2152A124F00B2BE98 /* UI */,
 				8810DB611523974A00FD2779 /* avatar@2x.png */,
 				8810DB621523974A00FD2779 /* avatar.png */,
 				88462680152125C80066A45F /* settings.png */,
@@ -152,6 +179,8 @@
 			children = (
 				881D8BCF152278E8002E550C /* SWFriendCell.h */,
 				881D8BD0152278E8002E550C /* SWFriendCell.m */,
+				8849F7BE152A3DF600B2BE98 /* SWAddFriendCell.h */,
+				8849F7BF152A3DF600B2BE98 /* SWAddFriendCell.m */,
 			);
 			name = UIElements;
 			sourceTree = "<group>";
@@ -159,6 +188,8 @@
 		88462635152120410066A45F = {
 			isa = PBXGroup;
 			children = (
+				8849F7C7152A441200B2BE98 /* Default@2x.png */,
+				8849F7C5152A440E00B2BE98 /* Default.png */,
 				8849F7871529787600B2BE98 /* radar@2x.png */,
 				8849F7841529787200B2BE98 /* radar.png */,
 				881D8BBF15226E0C002E550C /* logo.png */,
@@ -202,18 +233,15 @@
 			children = (
 				881D8BAB15219F4A002E550C /* Signup/login */,
 				881D8BCE152278D0002E550C /* UIElements */,
+				8849F7BA152A3CC900B2BE98 /* Settings */,
 				88462653152120420066A45F /* SWAppDelegate.h */,
 				88462654152120420066A45F /* SWAppDelegate.m */,
 				881D8BC115227062002E550C /* SWFriendListTableViewController.h */,
 				881D8BC215227062002E550C /* SWFriendListTableViewController.m */,
-				887A11A615295ED3006F0A80 /* SWPushDetailViewController.h */,
-				887A11A715295ED3006F0A80 /* SWPushDetailViewController.m */,
-				887A11C715297225006F0A80 /* SWSettingsViewController.h */,
+				8849F7AD152A29EE00B2BE98 /* SWPingDetailViewController.h */,
+				8849F7AE152A29EF00B2BE98 /* SWPingDetailViewController.m */,
 				8849F7941529860D00B2BE98 /* SWUserDetailViewController.h */,
 				8849F7951529860D00B2BE98 /* SWUserDetailViewController.m */,
-				887A11C815297226006F0A80 /* SWSettingsViewController.m */,
-				8849F79B15298FB800B2BE98 /* SWFriendRequestViewController.h */,
-				8849F79C15298FB800B2BE98 /* SWFriendRequestViewController.m */,
 				88462656152120420066A45F /* MainStoryboard.storyboard */,
 				887A11A915295F46006F0A80 /* External */,
 				8810DB5F1523973E00FD2779 /* Images */,
@@ -231,6 +259,34 @@
 				88462652152120420066A45F /* Friendar-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8849F7A2152A124F00B2BE98 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8849F7B6152A324A00B2BE98 /* fbLogoSpaced.png */,
+				8849F7B8152A32EC00B2BE98 /* fbLogoSpaced@2x.png */,
+				8849F7B4152A30B400B2BE98 /* facebookLogo.png */,
+				8849F7A3152A126000B2BE98 /* button_gloss_pressed.png */,
+				8849F7A4152A126000B2BE98 /* button_gloss_pressed@2x.png */,
+				8849F7A5152A126000B2BE98 /* button_gloss.png */,
+				8849F7A6152A126000B2BE98 /* button_gloss@2x.png */,
+				8849F7AB152A19A300B2BE98 /* button_gloss_full.png */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		8849F7BA152A3CC900B2BE98 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				887A11C715297225006F0A80 /* SWSettingsViewController.h */,
+				887A11C815297226006F0A80 /* SWSettingsViewController.m */,
+				8849F79B15298FB800B2BE98 /* SWFriendRequestViewController.h */,
+				8849F79C15298FB800B2BE98 /* SWFriendRequestViewController.m */,
+				8849F7BB152A3CF700B2BE98 /* SWFindFriendsTableViewController.h */,
+				8849F7BC152A3CF700B2BE98 /* SWFindFriendsTableViewController.m */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		887A11A915295F46006F0A80 /* External */ = {
@@ -325,6 +381,16 @@
 				887A11BD15296343006F0A80 /* SVProgressHUD.bundle in Resources */,
 				8849F7851529787200B2BE98 /* radar.png in Resources */,
 				8849F7881529787600B2BE98 /* radar@2x.png in Resources */,
+				8849F7A7152A126000B2BE98 /* button_gloss_pressed.png in Resources */,
+				8849F7A8152A126000B2BE98 /* button_gloss_pressed@2x.png in Resources */,
+				8849F7A9152A126000B2BE98 /* button_gloss.png in Resources */,
+				8849F7AA152A126000B2BE98 /* button_gloss@2x.png in Resources */,
+				8849F7AC152A19A300B2BE98 /* button_gloss_full.png in Resources */,
+				8849F7B5152A30B400B2BE98 /* facebookLogo.png in Resources */,
+				8849F7B7152A324A00B2BE98 /* fbLogoSpaced.png in Resources */,
+				8849F7B9152A32EC00B2BE98 /* fbLogoSpaced@2x.png in Resources */,
+				8849F7C6152A440F00B2BE98 /* Default.png in Resources */,
+				8849F7C8152A441200B2BE98 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,13 +407,15 @@
 				881D8BB215219F74002E550C /* SWLoginViewController.m in Sources */,
 				881D8BC315227062002E550C /* SWFriendListTableViewController.m in Sources */,
 				881D8BD1152278E8002E550C /* SWFriendCell.m in Sources */,
-				887A11A815295ED3006F0A80 /* SWPushDetailViewController.m in Sources */,
 				887A11AF15295F58006F0A80 /* MAConfirmButton.m in Sources */,
 				887A11B015295F59006F0A80 /* UIColor-Expanded.m in Sources */,
 				887A11BE15296343006F0A80 /* SVProgressHUD.m in Sources */,
 				887A11C915297226006F0A80 /* SWSettingsViewController.m in Sources */,
 				8849F7961529860D00B2BE98 /* SWUserDetailViewController.m in Sources */,
 				8849F79D15298FB800B2BE98 /* SWFriendRequestViewController.m in Sources */,
+				8849F7AF152A29EF00B2BE98 /* SWPingDetailViewController.m in Sources */,
+				8849F7BD152A3CF700B2BE98 /* SWFindFriendsTableViewController.m in Sources */,
+				8849F7C0152A3DF600B2BE98 /* SWAddFriendCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,19 +1,19 @@
 //
-//  SWUserDetailViewController.m
+//  SWPingDetailViewController.m
 //  Friendar
 //
 //  Created by Sam Warmuth on 4/2/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SWUserDetailViewController.h"
+#import "SWPingDetailViewController.h"
 
-@interface SWUserDetailViewController ()
+@interface SWPingDetailViewController ()
 
 @end
 
-@implementation SWUserDetailViewController
-@synthesize styledButtons, avatarImageView;
+@implementation SWPingDetailViewController
+@synthesize styledButtons;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -26,6 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	// Do any additional setup after loading the view.
     UIImage *buttonBackgroundImage = [UIImage imageNamed:@"button_gloss.png"];
     UIImage *stretchedBackground = [buttonBackgroundImage stretchableImageWithLeftCapWidth:5 topCapHeight:21];
     
@@ -36,10 +37,8 @@
         NSLog(@"Updating Button");        
         [button setBackgroundImage:stretchedBackground forState:UIControlStateNormal];
         [button setBackgroundImage:stretchedPressed forState:UIControlStateHighlighted];
+        
     }
-    
-    self.avatarImageView.layer.cornerRadius = 4.0;
-
 }
 
 - (void)viewDidUnload

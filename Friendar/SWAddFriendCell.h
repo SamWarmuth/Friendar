@@ -1,5 +1,5 @@
 //
-//  SWUserDetailViewController.h
+//  SWAddFriendCell.h
 //  Friendar
 //
 //  Created by Sam Warmuth on 4/2/12.
@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MAConfirmButton.h"
 
-@interface SWUserDetailViewController : UIViewController {
-    NSArray *styledButtons;
-}
-
-@property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *styledButtons;
+@interface SWAddFriendCell : UITableViewCell
+@property (nonatomic, strong) IBOutlet UILabel *emailLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
-
-
+@property (nonatomic, strong) MAConfirmButton *addConfirmButton;
 @end

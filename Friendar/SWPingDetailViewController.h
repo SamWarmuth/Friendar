@@ -1,5 +1,5 @@
 //
-//  SWUserDetailViewController.h
+//  SWPingDetailViewController.h
 //  Friendar
 //
 //  Created by Sam Warmuth on 4/2/12.
@@ -8,12 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SWUserDetailViewController : UIViewController {
-    NSArray *styledButtons;
-}
-
+@interface SWPingDetailViewController : UIViewController
 @property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *styledButtons;
-@property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
-
 
 @end

@@ -1,19 +1,19 @@
 //
-//  SWFriendListTableViewController.m
+//  SWFindFriendsTableViewController.m
 //  Friendar
 //
 //  Created by Sam Warmuth on 3/27/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SWFriendListTableViewController.h"
-#import "SWFriendCell.h"
+#import "SWFindFriendsTableViewController.h"
+#import "SWAddFriendCell.h"
 
-@interface SWFriendListTableViewController ()
+@interface SWFindFriendsTableViewController ()
 
 @end
 
-@implementation SWFriendListTableViewController
+@implementation SWFindFriendsTableViewController
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -41,13 +41,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
+    
     
     
 }
@@ -83,63 +83,39 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
                         object:(PFObject *)object
 {
-    static NSString *CellIdentifier = @"SWFriendCell";    
-    SWFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"SWAddFriendCell";    
+    SWAddFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[SWFriendCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[SWAddFriendCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    NSDictionary *currentAddress = [object objectForKey:@"current"];
-    if (currentAddress == nil){
-        cell.locationLabelOne.text = @"";
-        cell.locationLabelTwo.text = @"Location Not Available";
-    } else {
-        cell.locationLabelOne.text = [NSString stringWithFormat:@"%@ %@", [currentAddress valueForKey:@"streetNumber"], [currentAddress valueForKey:@"street"]];
-        cell.locationLabelTwo.text = [NSString stringWithFormat:@"%@, %@", [currentAddress valueForKey:@"city"], [currentAddress valueForKey:@"state"]];
-    }
-
+    
     cell.emailLabel.text = [object objectForKey:@"email"];
-    cell.avatarImageView.layer.cornerRadius = 4.0;
     cell.avatarImageView.clipsToBounds = TRUE;
-    if (cell.pushConfirmButton != nil){
-        [cell.pushConfirmButton removeFromSuperview];
-        cell.pushConfirmButton = nil;
+    if (cell.addConfirmButton != nil){
+        [cell.addConfirmButton removeFromSuperview];
+        cell.addConfirmButton = nil;
     }
     
     if ([object.objectId isEqualToString:[PFUser currentUser].objectId]){
-        cell.pushConfirmButton = [MAConfirmButton buttonWithDisabledTitle:@"You"];
+        cell.addConfirmButton = [MAConfirmButton buttonWithDisabledTitle:@"You"];
     } else {
-        cell.pushConfirmButton = [MAConfirmButton buttonWithTitle:@"Send Ping" confirm:@"Confirm"];
-        [cell.pushConfirmButton addTarget:self action:@selector(spotConfirmPressed:) forControlEvents:UIControlEventTouchUpInside];	
-        [cell.pushConfirmButton setTintColor:[UIColor colorWithRed:0.024 green:0.514 blue:0.796 alpha:1.]];
+        cell.addConfirmButton = [MAConfirmButton buttonWithTitle:@"Add Friend" confirm:@"Confirm"];
+        [cell.addConfirmButton addTarget:self action:@selector(addFriendPressed:) forControlEvents:UIControlEventTouchUpInside];	
+        [cell.addConfirmButton setTintColor:[UIColor colorWithRed:0.024 green:0.514 blue:0.796 alpha:1.]];
     }
     
-    [cell.pushConfirmButton setAnchor:CGPointMake(300, 15)];	
-    cell.pushConfirmButton.tag = indexPath.row + SWButtonTagOffset; 
-    [cell addSubview:cell.pushConfirmButton]; 
+    [cell.addConfirmButton setAnchor:CGPointMake(300, 8)];	
+    cell.addConfirmButton.tag = indexPath.row + SWButtonTagOffset; 
+    [cell addSubview:cell.addConfirmButton]; 
     
     return cell;
 }
 
-- (void)spotConfirmPressed:(MAConfirmButton *)button
+- (void)addFriendPressed:(MAConfirmButton *)button
 {
-    int userIndex = button.tag - SWButtonTagOffset;
-    PFUser *selectedUser = [self.objects objectAtIndex:userIndex];
-    
-    NSDictionary *alert = [NSDictionary dictionaryWithObjectsAndKeys:
-                           @"New Ping From Sam Warmuth", @"body",
-                           @"View", @"action-loc-key",
-                           nil];
-    
-    NSDictionary *pingData = [NSDictionary dictionaryWithObjectsAndKeys:
-                          alert, @"alert",
-                          nil];
-    NSLog(@"sending ping.");
-    PFPush *push = [[PFPush alloc] init];
-    [push setChannel:selectedUser.objectId];
-    [push setData:pingData];
-    [push expireAfterTimeInterval:86400];
-    [push sendPushInBackground];
-    [button disableWithTitle:@"Ping Sent"];
+    NSLog(@"Add Friend");
+    [button disableWithTitle:@"Request Sent"];
+
     
 }
 
@@ -163,14 +139,6 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"SWMainToDetail"]){
-        NSLog(@"boosh!");
-    }
-
 }
 
 @end
