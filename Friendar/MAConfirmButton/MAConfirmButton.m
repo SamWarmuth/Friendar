@@ -306,10 +306,13 @@
             [cancelOverlay removeFromSuperview];
             cancelOverlay = nil;
             [super touchesEnded:touches withEvent:event];
+        }else if(!confirm){
+            [self lighten];
+            [super touchesEnded:touches withEvent:event];
         }else{
             [self lighten];		
             self.selected = YES;            
-            if(!cancelOverlay){		                
+            if(!cancelOverlay && confirm){ 	                
                 cancelOverlay = [UIButton buttonWithType:UIButtonTypeCustom];
                 [cancelOverlay setFrame:CGRectMake(0, 0, 1024, 1024)];
                 [cancelOverlay addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchDown];

@@ -13,7 +13,13 @@
 }
 
 @property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *styledButtons;
+@property (nonatomic, strong) IBOutlet UIButton *directionsToButton, *addressToClipboardButton, *backInTownButton, *pingButton, *shareMyLocationButton;
 @property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
+@property (nonatomic, strong) IBOutlet UILabel *usernameLabel, *locationLabelOne, *locationLabelTwo;
+@property (nonatomic, strong) PFUser *user;
 
+- (IBAction)directionsToButtonPressed:(id)sender;
+- (IBAction)copyToClipboardPressed:(id)sender;
+- (IBAction)pingPressed:(id)sender;
 
 @end

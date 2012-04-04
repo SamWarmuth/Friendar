@@ -9,11 +9,16 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+#define METERS_PER_MILE 1609.344
+
 @interface SWAppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) UIWindow *window;
+@property BOOL waitingForGoodPoint;
+@property (nonatomic, strong) NSDate *lastLocationUpdate;
 
-- (void)bringPingToForeground:(NSDictionary *)pingData;
+- (void)bringPingToForegroundWithUserID:(NSString *)userID;
+- (void)getOneGoodLocationPoint;
 
 @end

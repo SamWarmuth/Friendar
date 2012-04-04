@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		880EB2F6152B825F001CDBAA /* SWFriendListRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 880EB2F5152B825F001CDBAA /* SWFriendListRequestCell.m */; };
+		880EB2F9152B9B99001CDBAA /* SWFacebookConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 880EB2F8152B9B99001CDBAA /* SWFacebookConnectViewController.m */; };
+		880EB30B152C0ACA001CDBAA /* SWHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 880EB30A152C0ACA001CDBAA /* SWHelpers.m */; };
+		880EB312152C24F6001CDBAA /* SWMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 880EB311152C24F5001CDBAA /* SWMapViewController.m */; };
 		8810DB631523974A00FD2779 /* avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8810DB611523974A00FD2779 /* avatar@2x.png */; };
 		8810DB641523974A00FD2779 /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 8810DB621523974A00FD2779 /* avatar.png */; };
 		881D8BAF15219F66002E550C /* SWSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 881D8BAE15219F66002E550C /* SWSignUpViewController.m */; };
@@ -59,6 +63,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		880EB2F4152B825F001CDBAA /* SWFriendListRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFriendListRequestCell.h; sourceTree = "<group>"; };
+		880EB2F5152B825F001CDBAA /* SWFriendListRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFriendListRequestCell.m; sourceTree = "<group>"; };
+		880EB2F7152B9B99001CDBAA /* SWFacebookConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWFacebookConnectViewController.h; sourceTree = "<group>"; };
+		880EB2F8152B9B99001CDBAA /* SWFacebookConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWFacebookConnectViewController.m; sourceTree = "<group>"; };
+		880EB309152C0AC9001CDBAA /* SWHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWHelpers.h; sourceTree = "<group>"; };
+		880EB30A152C0ACA001CDBAA /* SWHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWHelpers.m; sourceTree = "<group>"; };
+		880EB310152C24F5001CDBAA /* SWMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWMapViewController.h; sourceTree = "<group>"; };
+		880EB311152C24F5001CDBAA /* SWMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWMapViewController.m; sourceTree = "<group>"; };
 		8810DB611523974A00FD2779 /* avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar@2x.png"; sourceTree = "<group>"; };
 		8810DB621523974A00FD2779 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
 		881D8BAD15219F66002E550C /* SWSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWSignUpViewController.h; sourceTree = "<group>"; };
@@ -170,6 +182,8 @@
 				881D8BAE15219F66002E550C /* SWSignUpViewController.m */,
 				881D8BB015219F74002E550C /* SWLoginViewController.h */,
 				881D8BB115219F74002E550C /* SWLoginViewController.m */,
+				880EB2F7152B9B99001CDBAA /* SWFacebookConnectViewController.h */,
+				880EB2F8152B9B99001CDBAA /* SWFacebookConnectViewController.m */,
 			);
 			name = Signup/login;
 			sourceTree = "<group>";
@@ -181,6 +195,8 @@
 				881D8BD0152278E8002E550C /* SWFriendCell.m */,
 				8849F7BE152A3DF600B2BE98 /* SWAddFriendCell.h */,
 				8849F7BF152A3DF600B2BE98 /* SWAddFriendCell.m */,
+				880EB2F4152B825F001CDBAA /* SWFriendListRequestCell.h */,
+				880EB2F5152B825F001CDBAA /* SWFriendListRequestCell.m */,
 			);
 			name = UIElements;
 			sourceTree = "<group>";
@@ -242,6 +258,10 @@
 				8849F7AE152A29EF00B2BE98 /* SWPingDetailViewController.m */,
 				8849F7941529860D00B2BE98 /* SWUserDetailViewController.h */,
 				8849F7951529860D00B2BE98 /* SWUserDetailViewController.m */,
+				880EB310152C24F5001CDBAA /* SWMapViewController.h */,
+				880EB311152C24F5001CDBAA /* SWMapViewController.m */,
+				880EB309152C0AC9001CDBAA /* SWHelpers.h */,
+				880EB30A152C0ACA001CDBAA /* SWHelpers.m */,
 				88462656152120420066A45F /* MainStoryboard.storyboard */,
 				887A11A915295F46006F0A80 /* External */,
 				8810DB5F1523973E00FD2779 /* Images */,
@@ -416,6 +436,10 @@
 				8849F7AF152A29EF00B2BE98 /* SWPingDetailViewController.m in Sources */,
 				8849F7BD152A3CF700B2BE98 /* SWFindFriendsTableViewController.m in Sources */,
 				8849F7C0152A3DF600B2BE98 /* SWAddFriendCell.m in Sources */,
+				880EB2F6152B825F001CDBAA /* SWFriendListRequestCell.m in Sources */,
+				880EB2F9152B9B99001CDBAA /* SWFacebookConnectViewController.m in Sources */,
+				880EB30B152C0ACA001CDBAA /* SWHelpers.m in Sources */,
+				880EB312152C24F6001CDBAA /* SWMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

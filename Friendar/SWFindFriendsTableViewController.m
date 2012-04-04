@@ -89,15 +89,36 @@
         cell = [[SWAddFriendCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    cell.emailLabel.text = [object objectForKey:@"email"];
+    cell.emailLabel.text = [NSString stringWithFormat:@"%@ %@", [object objectForKey:@"firstName"], [object objectForKey:@"lastName"]];
     cell.avatarImageView.clipsToBounds = TRUE;
+    if ([object objectForKey:@"profilePicture"]) cell.avatarImageView.image = [UIImage imageWithData:[object objectForKey:@"profilePicture"]];
+    else cell.avatarImageView.image = [UIImage imageNamed:@"avatar"];
+    
     if (cell.addConfirmButton != nil){
         [cell.addConfirmButton removeFromSuperview];
         cell.addConfirmButton = nil;
     }
     
+    NSPredicate *youPredicate = [NSPredicate predicateWithFormat:@"objectId MATCHES %@", object.objectId];
+    NSArray *youFilteredArray = [[[PFUser currentUser] valueForKey:@"friends"] filteredArrayUsingPredicate:youPredicate];
+    BOOL youFriended = ([youFilteredArray count] != 0);
+    
+    NSPredicate *theyPredicate = [NSPredicate predicateWithFormat:@"objectId MATCHES %@", [PFUser currentUser].objectId];
+    NSArray *theyFilteredArray = [[object valueForKey:@"friends"] filteredArrayUsingPredicate:theyPredicate];
+    BOOL theyFriended = ([theyFilteredArray count] != 0);
+    
+    
+    
     if ([object.objectId isEqualToString:[PFUser currentUser].objectId]){
         cell.addConfirmButton = [MAConfirmButton buttonWithDisabledTitle:@"You"];
+    } else if (youFriended && theyFriended) {
+        cell.addConfirmButton = [MAConfirmButton buttonWithDisabledTitle:@"Friend"];
+    } else if (youFriended && !theyFriended) {
+        cell.addConfirmButton = [MAConfirmButton buttonWithDisabledTitle:@"Request Sent"];
+    } else if (!youFriended && theyFriended) {
+        cell.addConfirmButton = [MAConfirmButton buttonWithTitle:@"Accept" confirm:nil];
+        [cell.addConfirmButton addTarget:self action:@selector(addFriendPressed:) forControlEvents:UIControlEventTouchUpInside];	
+        [cell.addConfirmButton setTintColor:[UIColor colorWithRed:0.380 green:0.792 blue:0.161 alpha:1.]];
     } else {
         cell.addConfirmButton = [MAConfirmButton buttonWithTitle:@"Add Friend" confirm:@"Confirm"];
         [cell.addConfirmButton addTarget:self action:@selector(addFriendPressed:) forControlEvents:UIControlEventTouchUpInside];	
@@ -113,8 +134,72 @@
 
 - (void)addFriendPressed:(MAConfirmButton *)button
 {
-    NSLog(@"Add Friend");
-    [button disableWithTitle:@"Request Sent"];
+    PFUser *selectedUser = [self.objects objectAtIndex:(button.tag - SWButtonTagOffset)];
+    PFUser *currentUser = [PFUser currentUser];
+    NSPredicate *youPredicate = [NSPredicate predicateWithFormat:@"objectId MATCHES %@", selectedUser.objectId];
+    NSArray *youFilteredArray = [[currentUser objectForKey:@"friends"] filteredArrayUsingPredicate:youPredicate];
+    BOOL youFriended = ([youFilteredArray count] != 0);
+    
+    NSPredicate *theyPredicate = [NSPredicate predicateWithFormat:@"objectId MATCHES %@", currentUser.objectId];
+    NSArray *theyFilteredArray = [[selectedUser objectForKey:@"friends"] filteredArrayUsingPredicate:theyPredicate];
+    BOOL theyFriended = ([theyFilteredArray count] != 0);
+    
+    //If you've already friended them, there's nothing to do. You shouldn't be able to get here.
+    if (youFriended) return;
+    
+    if (theyFriended){
+        //confirm request
+        NSLog(@"Confirm Request");
+        [[currentUser objectForKey:@"friends"] addObject:selectedUser];
+        [currentUser saveInBackground];
+        
+        [button disableWithTitle:@"Friend"];
+        NSString *messageText = [NSString stringWithFormat:@"%@ %@ accepted your friend request", [currentUser objectForKey:@"firstName"], [currentUser objectForKey:@"lastName"]];
+        NSDictionary *alert = [NSDictionary dictionaryWithObjectsAndKeys:
+                               messageText, @"body",
+                               @"View", @"action-loc-key",
+                               nil];
+        
+        NSDictionary *pingData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  alert, @"alert",
+                                  @"friendRequestConfirm", @"type",
+                                  currentUser.objectId, @"senderID", 
+                                  nil];
+        NSLog(@"confirmed friend request.");
+        PFPush *push = [[PFPush alloc] init];
+        [push setChannel:[@"U" stringByAppendingString:selectedUser.objectId]];
+        [push setData:pingData];
+        [push expireAfterTimeInterval:86400];
+        [push sendPushInBackground];
+    } else{
+        //Send request
+        NSLog(@"Send Request");
+        [[currentUser objectForKey:@"friends"] addObject:selectedUser];
+        [currentUser saveInBackground];
+        NSString *messageText = [NSString stringWithFormat:@"%@ %@ wants to be your friend", [currentUser objectForKey:@"firstName"], [currentUser objectForKey:@"lastName"]];
+        
+        NSDictionary *alert = [NSDictionary dictionaryWithObjectsAndKeys:
+                               messageText, @"body",
+                               @"View", @"action-loc-key",
+                               nil];
+        
+        NSDictionary *pingData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  alert, @"alert",
+                                  @"friendRequest", @"type",
+                                  currentUser.objectId, @"senderID", 
+                                  nil];
+        NSLog(@"sending Friend Request.");
+        PFPush *push = [[PFPush alloc] init];
+        [push setChannel:[@"U" stringByAppendingString:selectedUser.objectId]];
+        [push setData:pingData];
+        [push expireAfterTimeInterval:86400];
+        [push sendPushInBackground];
+        [button disableWithTitle:@"Request Sent"];
+    }
+    
+
+    
+    NSLog(@"%@, %@", currentUser, selectedUser);
 
     
 }

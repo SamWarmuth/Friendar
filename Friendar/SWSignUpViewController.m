@@ -30,8 +30,7 @@
     [super viewDidLoad];
 	PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
-        NSLog(@"%@", currentUser);
-        [PFPush subscribeToChannelInBackground:currentUser.objectId];
+        [PFPush subscribeToChannelInBackground:[@"U" stringByAppendingString:currentUser.objectId]];
 
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         UIViewController *mainView = [storyboard instantiateViewControllerWithIdentifier:@"SWMainViewController"];
@@ -39,15 +38,6 @@
         navController.viewControllers = [NSArray arrayWithObject:mainView];
     } 
     
-    UIButton *fbButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [fbButton setFrame:CGRectMake(10.0f, 0.0f, 50.0f, 25.0f)];
-    [fbButton addTarget:self action:@selector(signupWithFacebook) forControlEvents:UIControlEventTouchUpInside];
-    [fbButton setImage:[UIImage imageNamed:@"fbLogoSpaced.png"] forState:UIControlStateNormal];
-    UIBarButtonItem *fbButtonItem = [[UIBarButtonItem alloc] initWithCustomView:fbButton];
-    
-    //? line incomplete ?//   imageNamed:@"random.png"] style:UIBarButtonItemStylePlain target:self action:@selector(randomMsg)];
-    
-    self.navigationItem.leftBarButtonItem = fbButtonItem;
     
     
 }
@@ -80,14 +70,15 @@
         user.username = email.text;
         user.password = password.text;
         user.email = email.text;
-        
+        [user setObject:[[NSMutableArray alloc] init] forKey:@"friends"];
+
         
         // other fields can be set just like with PFObject
         //[user setObject:@"415-392-0202" forKey:@"phone"];
         
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
-                [PFPush subscribeToChannelInBackground:user.objectId];
+                [PFPush subscribeToChannelInBackground:[@"U" stringByAppendingString:user.objectId]];
                 [self performSegueWithIdentifier:@"signupToMain" sender:self];
             } else {
                 NSString *errorString = [[error userInfo] objectForKey:@"error"];

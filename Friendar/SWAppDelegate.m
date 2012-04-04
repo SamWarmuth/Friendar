@@ -7,9 +7,10 @@
 //
 
 #import "SWAppDelegate.h"
+#import "SWPingDetailViewController.h"
 
 @implementation SWAppDelegate
-@synthesize locationManager;
+@synthesize locationManager, waitingForGoodPoint, lastLocationUpdate;
 @synthesize window = _window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -19,9 +20,16 @@
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert| UIRemoteNotificationTypeSound];
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
+    self.lastLocationUpdate = [NSDate dateWithTimeIntervalSince1970:0.0];
+
     [locationManager startMonitoringSignificantLocationChanges];
+    
+    //set location manager constants, but don't start it yet.
+    locationManager.distanceFilter = 20.0;
+    locationManager.desiredAccuracy = 10.0;
     return YES;
 }
+
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
@@ -29,36 +37,48 @@
     [PFPush storeDeviceToken:newDeviceToken];
     // Subscribe to the global broadcast channel.
     [PFPush subscribeToChannelInBackground:@""];
-    PFUser *currentUser = [PFUser currentUser];
-    [currentUser setObject:[[NSMutableArray alloc] init] forKey:@"friends"];
-    
-    [currentUser saveEventually];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     //[PFPush handlePush:userInfo];
-    NSLog(@"Hi!");
-    if (application.applicationState == UIApplicationStateActive){
-        NSLog(@"use:%@", userInfo);
-        [self bringPingToForeground:nil];
-        
-    } else {
-        NSLog(@"background....");
-        NSLog(@"use:%@", userInfo);
-        [self bringPingToForeground:nil];
+    NSLog(@"%@", userInfo);
+
+    NSString *type = [userInfo valueForKey:@"type"]; 
+    if ([type isEqualToString:@"ping"]){
+        [self bringPingToForegroundWithUserID:[userInfo objectForKey:@"senderID"]];
+    } else if ([type isEqualToString:@"friendRequestConfirm"]){
+        NSString *message = [[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"];
+        [SVProgressHUD show];
+        [SVProgressHUD dismissWithSuccess:message afterDelay:3];
+    } else if ([type isEqualToString:@"friendRequest"]){
+        //Send the user to the add friend view?
     }
+
+    
     
 }
 
-- (void)bringPingToForeground:(NSDictionary *)pingData
+- (void)getOneGoodLocationPoint
+{
+    //if we're waiting already, this is a duplicate call
+    if (self.waitingForGoodPoint) return;
+    if (self.locationManager == nil) return;
+    
+    [self.locationManager startUpdatingLocation];
+    self.waitingForGoodPoint = TRUE;
+    
+}
+
+- (void)bringPingToForegroundWithUserID:(NSString *)userID
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     UIViewController *viewController = (UIViewController *)(self.window.rootViewController.childViewControllers.lastObject);
     UINavigationController *navController = viewController.navigationController;
     
-    UIViewController *pingDetail = [storyboard instantiateViewControllerWithIdentifier:@"SWPingDetail"];
+    SWPingDetailViewController *pingDetail = [storyboard instantiateViewControllerWithIdentifier:@"SWPingDetail"];
     NSMutableArray *newViewControllers = [navController.viewControllers mutableCopy];
     [newViewControllers addObject:pingDetail];
+    [pingDetail updateWithUserID:userID];
     
     navController.viewControllers = [NSArray arrayWithArray:newViewControllers];
 }
@@ -77,7 +97,19 @@
            fromLocation:(CLLocation *)oldLocation
 {
     NSLog(@"New Location!");
-    [self sendLocationAndAddressToServerWithLocation:newLocation];
+    
+    //We want a good point. However, if it's been over 15 minutes since the last point,
+    //      upload it anyway and keep waiting.
+    if (newLocation.horizontalAccuracy < 20.0){
+        NSLog(@"Good Location!");
+        [self sendLocationAndAddressToServerWithLocation:newLocation];
+        self.waitingForGoodPoint = FALSE;
+        [self.locationManager stopUpdatingLocation];
+    } else if ([[NSDate date] timeIntervalSinceDate:self.lastLocationUpdate] > 60*15){
+        NSLog(@"Not good, but it's been a while, so we'll take what we can get!");
+        [self sendLocationAndAddressToServerWithLocation:newLocation];
+    }
+    
 }
 
 
@@ -86,6 +118,7 @@
 - (void)sendLocationAndAddressToServerWithLocation:(CLLocation *)location
 {
     if (location == nil) return;
+    self.lastLocationUpdate = [NSDate date];
     
     PFUser *currentUser = [PFUser currentUser];
     
@@ -100,6 +133,12 @@
                    completionHandler:^(NSArray *placemarks, NSError *error) {
                        if (error){
                            NSLog(@"Geocode failed with error: %@", error); 
+                           NSDictionary *currentDict = [[NSMutableDictionary alloc] init];
+
+                           [currentDict setValue:lat forKey:@"latitude"];
+                           [currentDict setValue:lng forKey:@"longitude"];
+                           [currentDict setValue:accuracy forKey:@"accuracy"];
+                           [currentDict setValue:[NSDate date] forKey:@"timestamp"];
                            [currentUser saveEventually];
                            return;
                        }
@@ -136,6 +175,12 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    if (self.waitingForGoodPoint){
+        [self.locationManager stopUpdatingLocation];
+        self.waitingForGoodPoint = FALSE;
+    }
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -145,7 +190,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if ([PFUser currentUser]) [self getOneGoodLocationPoint];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

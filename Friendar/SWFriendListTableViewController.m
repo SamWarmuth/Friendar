@@ -8,6 +8,9 @@
 
 #import "SWFriendListTableViewController.h"
 #import "SWFriendCell.h"
+#import "SWFriendListRequestCell.h"
+#import "SWUserDetailViewController.h"
+#import "SWHelpers.h"
 
 @interface SWFriendListTableViewController ()
 
@@ -52,6 +55,12 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadObjects];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -67,6 +76,7 @@
 #pragma mark - Table view data source
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryForUser];
+    [query whereKey:@"friends" equalTo:[PFUser currentUser]];
     
     // If no objects are loaded in memory, we look to the cache first to fill the table
     // and then subsequently do a query against the network.
@@ -83,64 +93,77 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
                         object:(PFObject *)object
 {
-    static NSString *CellIdentifier = @"SWFriendCell";    
-    SWFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[SWFriendCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
-    NSDictionary *currentAddress = [object objectForKey:@"current"];
-    if (currentAddress == nil){
-        cell.locationLabelOne.text = @"";
-        cell.locationLabelTwo.text = @"Location Not Available";
+    PFUser *currentUser = [PFUser currentUser];
+    NSPredicate *youPredicate = [NSPredicate predicateWithFormat:@"objectId MATCHES %@", object.objectId];
+    NSArray *youFilteredArray = [[currentUser objectForKey:@"friends"] filteredArrayUsingPredicate:youPredicate];
+    BOOL youFriended = ([youFilteredArray count] != 0);
+    if (!youFriended){
+        //If you haven't friended them, this means that it is a request.
+        static NSString *CellIdentifier = @"SWFriendListRequestCell";    
+        SWFriendListRequestCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[SWFriendListRequestCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        cell.emailLabel.text = [NSString stringWithFormat:@"%@ %@", [object objectForKey:@"firstName"], [object objectForKey:@"lastName"]];
+        cell.avatarImageView.layer.cornerRadius = 4.0;
+        cell.avatarImageView.clipsToBounds = TRUE;
+        
+        if ([object objectForKey:@"profilePicture"]) cell.avatarImageView.image = [UIImage imageWithData:[object objectForKey:@"profilePicture"]];
+        else cell.avatarImageView.image = [UIImage imageNamed:@"avatar"];
+
+        return cell;
     } else {
-        cell.locationLabelOne.text = [NSString stringWithFormat:@"%@ %@", [currentAddress valueForKey:@"streetNumber"], [currentAddress valueForKey:@"street"]];
-        cell.locationLabelTwo.text = [NSString stringWithFormat:@"%@, %@", [currentAddress valueForKey:@"city"], [currentAddress valueForKey:@"state"]];
+        //normal friend
+        static NSString *CellIdentifier = @"SWFriendCell";    
+        SWFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[SWFriendCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        cell.emailLabel.text = [NSString stringWithFormat:@"%@ %@", [object objectForKey:@"firstName"], [object objectForKey:@"lastName"]];
+        cell.avatarImageView.layer.cornerRadius = 4.0;
+        cell.avatarImageView.clipsToBounds = TRUE;
+        if ([object objectForKey:@"profilePicture"]) cell.avatarImageView.image = [UIImage imageWithData:[object objectForKey:@"profilePicture"]];
+        else cell.avatarImageView.image = [UIImage imageNamed:@"avatar"];
+
+    
+        NSDictionary *currentAddress = [object objectForKey:@"current"];
+        
+        if (currentAddress == nil || [[NSDate date] timeIntervalSinceDate:(NSDate *)[currentAddress objectForKey:@"timestamp"]] > 60*60*2){
+            cell.locationLabelOne.text = @"";
+            cell.locationLabelTwo.text = @"Location Not Available";
+        } else {
+            cell.locationLabelOne.text = [NSString stringWithFormat:@"%@ %@", [currentAddress valueForKey:@"streetNumber"], [currentAddress valueForKey:@"street"]];
+            cell.locationLabelTwo.text = [NSString stringWithFormat:@"%@, %@", [currentAddress valueForKey:@"city"], [currentAddress valueForKey:@"state"]];
+        }
+        
+        
+        if (cell.pushConfirmButton != nil){
+            [cell.pushConfirmButton removeFromSuperview];
+            cell.pushConfirmButton = nil;
+        }
+        
+        if ([object.objectId isEqualToString:[PFUser currentUser].objectId]){
+            cell.pushConfirmButton = [MAConfirmButton buttonWithDisabledTitle:@"You"];
+        } else {
+            cell.pushConfirmButton = [MAConfirmButton buttonWithTitle:@"Send Ping" confirm:@"Confirm"];
+            [cell.pushConfirmButton addTarget:self action:@selector(spotConfirmPressed:) forControlEvents:UIControlEventTouchUpInside];	
+            [cell.pushConfirmButton setTintColor:[UIColor colorWithRed:0.024 green:0.514 blue:0.796 alpha:1.]];
+        }
+        
+        [cell.pushConfirmButton setAnchor:CGPointMake(300, 15)];	
+        cell.pushConfirmButton.tag = indexPath.row + SWButtonTagOffset; 
+        [cell addSubview:cell.pushConfirmButton]; 
+        return cell;
     }
 
-    cell.emailLabel.text = [object objectForKey:@"email"];
-    cell.avatarImageView.layer.cornerRadius = 4.0;
-    cell.avatarImageView.clipsToBounds = TRUE;
-    if (cell.pushConfirmButton != nil){
-        [cell.pushConfirmButton removeFromSuperview];
-        cell.pushConfirmButton = nil;
-    }
-    
-    if ([object.objectId isEqualToString:[PFUser currentUser].objectId]){
-        cell.pushConfirmButton = [MAConfirmButton buttonWithDisabledTitle:@"You"];
-    } else {
-        cell.pushConfirmButton = [MAConfirmButton buttonWithTitle:@"Send Ping" confirm:@"Confirm"];
-        [cell.pushConfirmButton addTarget:self action:@selector(spotConfirmPressed:) forControlEvents:UIControlEventTouchUpInside];	
-        [cell.pushConfirmButton setTintColor:[UIColor colorWithRed:0.024 green:0.514 blue:0.796 alpha:1.]];
-    }
-    
-    [cell.pushConfirmButton setAnchor:CGPointMake(300, 15)];	
-    cell.pushConfirmButton.tag = indexPath.row + SWButtonTagOffset; 
-    [cell addSubview:cell.pushConfirmButton]; 
-    
-    return cell;
 }
 
 - (void)spotConfirmPressed:(MAConfirmButton *)button
 {
     int userIndex = button.tag - SWButtonTagOffset;
     PFUser *selectedUser = [self.objects objectAtIndex:userIndex];
-    
-    NSDictionary *alert = [NSDictionary dictionaryWithObjectsAndKeys:
-                           @"New Ping From Sam Warmuth", @"body",
-                           @"View", @"action-loc-key",
-                           nil];
-    
-    NSDictionary *pingData = [NSDictionary dictionaryWithObjectsAndKeys:
-                          alert, @"alert",
-                          nil];
-    NSLog(@"sending ping.");
-    PFPush *push = [[PFPush alloc] init];
-    [push setChannel:selectedUser.objectId];
-    [push setData:pingData];
-    [push expireAfterTimeInterval:86400];
-    [push sendPushInBackground];
+    [SWHelpers pingUser:selectedUser];
     [button disableWithTitle:@"Ping Sent"];
-    
 }
 
 - (void)objectsWillLoad
@@ -150,6 +173,7 @@
 - (void)objectsDidLoad:(NSError *)error
 {
     //NSLog(@"Loaded....? :: %@ :: %d", error, self.objects.count);
+    NSLog(@"Loaded!");
 }
 
 #pragma mark - Table view delegate
@@ -168,7 +192,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"SWMainToDetail"]){
-        NSLog(@"boosh!");
+        SWUserDetailViewController *destinationView = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        PFUser *user = [self.objects objectAtIndex:indexPath.row];
+        destinationView.user = user;
     }
 
 }

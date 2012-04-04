@@ -52,7 +52,7 @@
         [PFUser logInWithUsernameInBackground:email.text password:password.text 
                                         block:^(PFUser *user, NSError *error) {
                                             if (user) {
-                                                [PFPush subscribeToChannelInBackground:user.objectId];
+                                                [PFPush subscribeToChannelInBackground:[@"U" stringByAppendingString:user.objectId]];
                                                 [self performSegueWithIdentifier:@"loginToMain" sender:self];
                                             } else {
                                                 NSString *errorString = [[error userInfo] objectForKey:@"error"];

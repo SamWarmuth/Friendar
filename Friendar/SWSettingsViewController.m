@@ -33,7 +33,7 @@
 {
     [PFUser logOut];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    UIViewController *signup = [storyboard instantiateViewControllerWithIdentifier:@"SWSignUpViewController"];
+    UIViewController *signup = [storyboard instantiateViewControllerWithIdentifier:@"SWFacebookConnectViewController"];
     UINavigationController *navController = self.navigationController;
     navController.viewControllers = [NSArray arrayWithObject:signup];
 }
