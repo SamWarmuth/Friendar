@@ -59,16 +59,19 @@
 {
     [super viewWillAppear:animated];
     [SVProgressHUD dismiss];
-    [self loadObjects];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (!self.isLoading)[self loadObjects];
     //either it will be zero (right after first login), or one (just you).
-    if (self.objects.count < 2){
+    if (self.objects.count == 0){
         [SVProgressHUD show];
         [SVProgressHUD dismissWithSuccess:@"You don't have any friends. Tap the '+' button above to add some!" afterDelay:100];
+    } else {
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -189,7 +192,12 @@
 - (void)objectsDidLoad:(NSError *)error
 {
     //NSLog(@"Loaded....? :: %@ :: %d", error, self.objects.count);
-    NSLog(@"Loaded!");
+    if (self.objects.count == 0){
+        [SVProgressHUD show];
+        [SVProgressHUD dismissWithSuccess:@"You don't have any friends. Tap the '+' button above to add some!" afterDelay:100];
+    } else {
+        [SVProgressHUD dismiss];
+    }
 }
 
 #pragma mark - Table view delegate

@@ -130,15 +130,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Friendar" id="Jy7-gw-wdN">
-                        <barButtonItem key="rightBarButtonItem" title="Email" id="Iee-7R-SVf">
-                            <connections>
-                                <segue destination="yig-bt-MfP" kind="push" id="3sQ-YZ-VpQ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Friendar" id="Jy7-gw-wdN"/>
                     <connections>
                         <segue destination="z2p-bz-zQR" kind="push" identifier="SWFacebookToMain" id="EgJ-wF-tJk"/>
+                        <segue destination="yig-bt-MfP" kind="push" identifier="SWFacebookToSignup" id="WYh-u1-kBp"/>
                     </connections>
                 </viewController>
             </objects>

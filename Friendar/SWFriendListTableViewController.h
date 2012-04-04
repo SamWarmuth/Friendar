@@ -11,7 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MAConfirmButton.h"
 
-#define SWButtonTagOffset                 1111
+#define SWButtonTagOffset                 2000
 
 @interface SWFriendListTableViewController : PFQueryTableViewController
 

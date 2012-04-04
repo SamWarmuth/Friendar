@@ -15,7 +15,7 @@
 @end
 
 @implementation SWUserDetailViewController
-@synthesize styledButtons, avatarImageView, user, usernameLabel, locationLabelOne, locationLabelTwo, directionsToButton, addressToClipboardButton, backInTownButton, pingButton, shareMyLocationButton;;
+@synthesize styledButtons, avatarImageView, user, usernameLabel, locationLabelOne, locationLabelTwo, mapButton, directionsToButton, addressToClipboardButton, backInTownButton, pingButton, shareMyLocationButton;;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -67,18 +67,23 @@
             
             [self.directionsToButton setTitleColor:SWDisabledTextColor forState:UIControlStateNormal];
             [self.addressToClipboardButton setTitleColor:SWDisabledTextColor forState:UIControlStateNormal];
+            [self.mapButton setTitleColor:SWDisabledTextColor forState:UIControlStateNormal];
+
             self.directionsToButton.enabled = FALSE;
             self.addressToClipboardButton.enabled = FALSE;
-
-            
+            self.mapButton.enabled = FALSE;
         } else {
             self.locationLabelOne.text = [NSString stringWithFormat:@"%@ %@", [currentAddress valueForKey:@"streetNumber"], [currentAddress valueForKey:@"street"]];
             self.locationLabelTwo.text = [NSString stringWithFormat:@"%@, %@", [currentAddress valueForKey:@"city"], [currentAddress valueForKey:@"state"]];
             
             [self.directionsToButton setTitleColor:SWEnabledTextColor forState:UIControlStateNormal];
             [self.addressToClipboardButton setTitleColor:SWEnabledTextColor forState:UIControlStateNormal];
+            [self.mapButton setTitleColor:SWEnabledTextColor forState:UIControlStateNormal];
+
             self.directionsToButton.enabled = TRUE;
             self.addressToClipboardButton.enabled = TRUE;
+            self.mapButton.enabled = TRUE;
+
         }
         
     }

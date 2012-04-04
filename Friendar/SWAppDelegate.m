@@ -94,7 +94,7 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    NSLog(@"New Location!");
+    NSLog(@"New Location! Accuracy: %g. Waiting for new point: %d.", newLocation.horizontalAccuracy, self.waitingForGoodPoint);
     
     //We want a good point. However, if it's been over 15 minutes since the last point,
     //      upload it anyway and keep waiting.

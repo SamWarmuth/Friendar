@@ -41,7 +41,7 @@
     double lng = [[userLocationDict valueForKey:@"longitude"] doubleValue];
     CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
     
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 5*METERS_PER_MILE, 5*METERS_PER_MILE);
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 1*METERS_PER_MILE, 1*METERS_PER_MILE);
     MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];
     [mapView setRegion:adjustedRegion animated:YES];
     

@@ -71,6 +71,7 @@
 		880EB30A152C0ACA001CDBAA /* SWHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWHelpers.m; sourceTree = "<group>"; };
 		880EB310152C24F5001CDBAA /* SWMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWMapViewController.h; sourceTree = "<group>"; };
 		880EB311152C24F5001CDBAA /* SWMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWMapViewController.m; sourceTree = "<group>"; };
+		880EB31E152CEFBE001CDBAA /* Friendar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Friendar.entitlements; sourceTree = "<group>"; };
 		8810DB611523974A00FD2779 /* avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar@2x.png"; sourceTree = "<group>"; };
 		8810DB621523974A00FD2779 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
 		881D8BAD15219F66002E550C /* SWSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWSignUpViewController.h; sourceTree = "<group>"; };
@@ -247,6 +248,7 @@
 		8846264A152120420066A45F /* Friendar */ = {
 			isa = PBXGroup;
 			children = (
+				880EB31E152CEFBE001CDBAA /* Friendar.entitlements */,
 				881D8BAB15219F4A002E550C /* Signup/login */,
 				881D8BCE152278D0002E550C /* UIElements */,
 				8849F7BA152A3CC900B2BE98 /* Settings */,
@@ -513,6 +515,7 @@
 		8846265F152120420066A45F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Friendar/Friendar.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -537,7 +540,9 @@
 		88462660152120420066A45F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Friendar/Friendar.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Friendar\"",
@@ -554,6 +559,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

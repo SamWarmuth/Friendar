@@ -174,6 +174,8 @@
     } else{
         //Send request
         NSLog(@"Send Request");
+        [button disableWithTitle:@"Request Sent"];
+        if (![currentUser objectForKey:@"friends"]) [currentUser setObject:[[NSMutableArray alloc] init] forKey:@"friends"];
         [[currentUser objectForKey:@"friends"] addObject:selectedUser];
         [currentUser saveInBackground];
         NSString *messageText = [NSString stringWithFormat:@"%@ %@ wants to be your friend", [currentUser objectForKey:@"firstName"], [currentUser objectForKey:@"lastName"]];
@@ -188,13 +190,14 @@
                                   @"friendRequest", @"type",
                                   currentUser.objectId, @"senderID", 
                                   nil];
-        NSLog(@"sending Friend Request.");
+        NSLog(@"sending Friend Request to %@", selectedUser);
         PFPush *push = [[PFPush alloc] init];
         [push setChannel:[@"U" stringByAppendingString:selectedUser.objectId]];
+        NSLog(@"past the objectID?");
+
         [push setData:pingData];
         [push expireAfterTimeInterval:86400];
         [push sendPushInBackground];
-        [button disableWithTitle:@"Request Sent"];
     }
     
 

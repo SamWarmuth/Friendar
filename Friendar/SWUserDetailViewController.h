@@ -13,7 +13,7 @@
 }
 
 @property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *styledButtons;
-@property (nonatomic, strong) IBOutlet UIButton *directionsToButton, *addressToClipboardButton, *backInTownButton, *pingButton, *shareMyLocationButton;
+@property (nonatomic, strong) IBOutlet UIButton *mapButton, *directionsToButton, *addressToClipboardButton, *backInTownButton, *pingButton, *shareMyLocationButton;
 @property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
 @property (nonatomic, strong) IBOutlet UILabel *usernameLabel, *locationLabelOne, *locationLabelTwo;
 @property (nonatomic, strong) PFUser *user;

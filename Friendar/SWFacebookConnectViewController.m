@@ -57,11 +57,11 @@
             [SVProgressHUD dismiss];
         } else if (user.isNew) {
             NSLog(@"User signed up and logged in through Facebook!");
-            [(SWAppDelegate *)[[UIApplication sharedApplication] delegate] getOneGoodLocationPoint];
             [[PFFacebookUtils facebook] requestWithGraphPath:@"me" andDelegate:self];
         } else {
             NSLog(@"User logged in through Facebook!");
             [SVProgressHUD dismiss];
+            [PFPush subscribeToChannelInBackground:[@"U" stringByAppendingString:[PFUser currentUser].objectId]];
             SWAppDelegate *appDelegate = (SWAppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate.locationManager startMonitoringSignificantLocationChanges];
             [appDelegate getOneGoodLocationPoint];
@@ -73,7 +73,7 @@
 - (void)request:(PF_FBRequest *)request didLoad:(id)result
 {
 	PFUser *currentUser = [PFUser currentUser];
-    [currentUser setObject:[NSMutableArray arrayWithObject:currentUser] forKey:@"friends"];
+    [currentUser setObject:[[NSMutableArray alloc] init] forKey:@"friends"];
     if ([result valueForKey:@"first_name"]) [currentUser setObject:[result valueForKey:@"first_name"] forKey:@"firstName"];
     if ([result valueForKey:@"last_name"]) [currentUser setObject:[result valueForKey:@"last_name"] forKey:@"lastName"];
 
@@ -89,6 +89,11 @@
         }
         [currentUser setObject:data forKey:@"profilePicture"];
         [currentUser saveInBackground];
+        [PFPush subscribeToChannelInBackground:[@"U" stringByAppendingString:[PFUser currentUser].objectId]];
+
+        SWAppDelegate *appDelegate = (SWAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate.locationManager startMonitoringSignificantLocationChanges];
+        [appDelegate getOneGoodLocationPoint];
         [SVProgressHUD dismiss];
         [self performSegueWithIdentifier:@"SWFacebookToMain" sender:self];
         
