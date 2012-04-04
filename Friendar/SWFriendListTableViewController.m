@@ -58,9 +58,25 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [SVProgressHUD dismiss];
     [self loadObjects];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    //either it will be zero (right after first login), or one (just you).
+    if (self.objects.count < 2){
+        [SVProgressHUD show];
+        [SVProgressHUD dismissWithSuccess:@"You don't have any friends. Tap the '+' button above to add some!" afterDelay:100];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

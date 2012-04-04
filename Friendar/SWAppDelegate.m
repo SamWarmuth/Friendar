@@ -21,8 +21,6 @@
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     self.lastLocationUpdate = [NSDate dateWithTimeIntervalSince1970:0.0];
-
-    [locationManager startMonitoringSignificantLocationChanges];
     
     //set location manager constants, but don't start it yet.
     locationManager.distanceFilter = 20.0;
@@ -77,10 +75,10 @@
     
     SWPingDetailViewController *pingDetail = [storyboard instantiateViewControllerWithIdentifier:@"SWPingDetail"];
     NSMutableArray *newViewControllers = [navController.viewControllers mutableCopy];
-    [newViewControllers addObject:pingDetail];
-    [pingDetail updateWithUserID:userID];
-    
+    [newViewControllers addObject:pingDetail];    
     navController.viewControllers = [NSArray arrayWithArray:newViewControllers];
+    [pingDetail updateWithUserID:userID];
+
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
@@ -105,7 +103,7 @@
         [self sendLocationAndAddressToServerWithLocation:newLocation];
         self.waitingForGoodPoint = FALSE;
         [self.locationManager stopUpdatingLocation];
-    } else if ([[NSDate date] timeIntervalSinceDate:self.lastLocationUpdate] > 60*15){
+    } else if ([[NSDate date] timeIntervalSinceDate:self.lastLocationUpdate] > 60*10){
         NSLog(@"Not good, but it's been a while, so we'll take what we can get!");
         [self sendLocationAndAddressToServerWithLocation:newLocation];
     }
@@ -139,7 +137,7 @@
                            [currentDict setValue:lng forKey:@"longitude"];
                            [currentDict setValue:accuracy forKey:@"accuracy"];
                            [currentDict setValue:[NSDate date] forKey:@"timestamp"];
-                           [currentUser saveEventually];
+                           [currentUser saveInBackground];
                            return;
                        }
                        if(placemarks && placemarks.count > 0){
@@ -158,7 +156,7 @@
 
                            [currentUser setObject:currentDict forKey:@"current"];
                            
-                           [currentUser saveEventually];
+                           [currentUser saveInBackground];
                        }
                    }];
 }

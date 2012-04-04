@@ -13,5 +13,6 @@
 
 @property (nonatomic, strong) PFUser *user;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
-
+- (IBAction)directionsToButtonPressed:(id)sender;
+- (IBAction)copyToClipboardPressed:(id)sender;
 @end

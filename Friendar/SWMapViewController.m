@@ -8,6 +8,7 @@
 
 #import "SWMapViewController.h"
 #import "SWAppDelegate.h"
+#import "SWHelpers.h"
 
 @interface SWMapViewController ()
 
@@ -55,6 +56,24 @@
     [self.mapView addAnnotation:annotation];
 
     
+}
+
+-(IBAction)directionsToButtonPressed:(id)sender
+{
+    [SWHelpers directionsForAddressDict:[user objectForKey:@"current"]];
+}
+
+
+- (IBAction)copyToClipboardPressed:(id)sender   
+{
+    NSDictionary *currentAddress = [user objectForKey:@"current"];
+    if (currentAddress == nil) return;
+    
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = [SWHelpers stringFromAddressDict:currentAddress];
+    
+    [SVProgressHUD show];
+    [SVProgressHUD dismissWithSuccess:@"Copied to Clipboard" afterDelay:1.5];
 }
 
 - (void)viewDidUnload

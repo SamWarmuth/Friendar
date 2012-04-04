@@ -62,7 +62,9 @@
         } else {
             NSLog(@"User logged in through Facebook!");
             [SVProgressHUD dismiss];
-            [(SWAppDelegate *)[[UIApplication sharedApplication] delegate] getOneGoodLocationPoint];
+            SWAppDelegate *appDelegate = (SWAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate.locationManager startMonitoringSignificantLocationChanges];
+            [appDelegate getOneGoodLocationPoint];
             [self performSegueWithIdentifier:@"SWFacebookToMain" sender:self];
         }
     }];
